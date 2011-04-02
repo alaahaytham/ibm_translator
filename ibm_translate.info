@@ -1,0 +1,10 @@
+; $Id$ 
+name = IBM translation
+description = Creates a draft of a node in all active languages when a new node is created using IBM Translate.
+package = Multilanguage
+core = 6.x
+
+dependencies[] = translation
+dependencies[] = i18n
+dependencies[] = rules
+
