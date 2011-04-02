@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Implementation of hook_rules_action_info().
  */
@@ -60,7 +61,7 @@ function ibm_translate_action_node_translate($node) {
     // if the node body is too long, split it up
       if (strlen($node->body) > 1000) {
         // we need to send HTML to Google to not lose formatting
-        $body_markup = check_markup($node->body);
+        $body_markup = check_markup($node->body, 2);
         // split up the string in to our array
         $body_array = str_split($body_markup, 1000);
         // set flag so translating logic knows we split the string
@@ -93,7 +94,7 @@ function ibm_translate_action_node_translate($node) {
         $srvc_id = 'en-us_ar-ar';
       }
       
-      if ($body_split) {
+      /*if ($body_split) {
         // define variables
         $tbody_array = array();
         $chunk_failed = FALSE;
@@ -103,14 +104,14 @@ function ibm_translate_action_node_translate($node) {
         }
         
       }
-      else {
+      else {*/
       
           // we need to send HTML to IBM to not lose formatting
           // attempt to turn mark-up back in to real line breaks
           // we need to send HTML to Google to not lose formatting
+
+          $body_markup = check_markup($node->body, 2);
           
-          $body_markup = check_markup($node->body);
-          //die(print_r($body_markup));
           $tbody = translate($srvc_id, $body_markup);
           // attempt to turn mark-up back in to real line breaks
           $tbody = str_replace('<p>', '', $tbody);
@@ -119,7 +120,7 @@ function ibm_translate_action_node_translate($node) {
           $tbody = str_replace('<br/>', "\n", $tbody);
           $tbody = str_replace('<br />', "\n", $tbody);        
           $new_node->body = $tbody;
-      }
+      //}
       
       $text = $node->title;
       $ttitle = translate($srvc_id, $text);
